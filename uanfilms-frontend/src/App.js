@@ -1,12 +1,38 @@
-
+// src/App.js
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import PrivateRoute from './components/PrivateRoute';
+import HomePage from './pages/HomePage'; 
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage'; 
+import MovieDetailPage from './pages/MovieDetailPage'; 
+import MovieFormPage from './pages/MovieFormPage'; 
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Proyecto UANFilms</h1>
+      <Navbar />
+      <main>
+        <Routes>
+          {/* Rutas Públicas */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/pelicula/:id" element={<MovieDetailPage />} />
+
+          {/* Rutas Privadas */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/agregar-pelicula" element={<MovieFormPage />} />
+            {/* Aquí irían otras rutas privadas, */}
+          </Route>
+        </Routes>
+      </main>
     </div>
   );
 }
 
 export default App;
+
+
