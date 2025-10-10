@@ -1,0 +1,16 @@
+# Frontend - React
+  uanfilms-frontend/node_modules/
+  uanfilms-frontend/build/
+  uanfilms-frontend/.pnp.js
+  uanfilms-frontend/.pnp.loader.js
+  uanfilms-frontend/coverage/
+
+  # Archivos de sistema operativo y editores
+  .DS_Store
+  Thumbs.db
+  .env
+  *.env.local
+# Backend - Django
+uanfilms-backend/venv/
+uanfilms-backend/pycache/
+uanfilms-backend/*.sqlite3
