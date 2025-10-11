@@ -10,7 +10,7 @@ class RegistroSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         
-        usuario = Usuario.ojects.create_user(
+        usuario = Usuario.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],

@@ -3,17 +3,15 @@ from rest_framework import serializers
 from .models import Pelicula, Resena
 from usuarios.models import Usuario
 
+
+
 class ResenaSerializer(serializers.ModelSerializer):
-    
     usuario = serializers.ReadOnlyField(source='usuario.username')
 
     class Meta:
         model = Resena
         fields = ['id', 'pelicula', 'usuario', 'calificacion', 'texto_resena', 'creado_en']
-        read_only_fields = ('usuario',) # El usuario se asigna automáticamente
-
-    def validate_texto_resena(self, value):
-        return value.lower()
+        read_only_fields = ('usuario', 'pelicula') 
 
 class PeliculaSerializer(serializers.ModelSerializer):
     
