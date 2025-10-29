@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api', // La URL base de tu API de Django
+    baseURL: process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000/api/', // Usará la variable de entorno en prod, o localhost en dev
 });
 
 // Interceptor: Se ejecuta en cada petición para añadir el token de autenticación
