@@ -1,8 +1,6 @@
 
 import os
 from dotenv import load_dotenv
-
-
 from pathlib import Path
 
 
@@ -10,10 +8,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv() 
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = False
-ALLOWED_HOSTS = ['*']
-
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', os.environ.get('SECRET_KEY'))
+if not SECRET_KEY:
+    raise ValueError("La variable de entorno SECRET_KEY no está definida.")
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() == 'true'
+allowed_hosts_str = os.environ.get('DJANGO_ALLOWED_HOSTS', '')
+if allowed_hosts_str:
+    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',') if host.strip()]
+else:
+    
+    if DEBUG:
+        ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'tu_ip_publica_de_la_vm_local_test'] 
+    else:
+        ALLOWED_HOSTS = [] 
 
 # Application definition
 
@@ -35,17 +42,23 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware', 
-    'django.middleware.common.CommonMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
+cors_origins_str = os.environ.get('CORS_ALLOWED_ORIGINS_LIST', '')
+if cors_origins_str:
+    CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',') if origin.strip()]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000", # Para desarrollo local de React
+        # Aquí puedes añadir la URL de tu Blob Storage si quieres que funcione siempre
+        # por ejemplo: "https://frontpeliculastuusername.zxx.web.core.windows.net",
+    ]
+
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
 ROOT_URLCONF = 'uanfilms_backend.urls'
@@ -111,9 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
