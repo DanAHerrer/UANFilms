@@ -55,8 +55,7 @@ if cors_origins_str:
 else:
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:3000", # Para desarrollo local de React
-        # Aquí puedes añadir la URL de tu Blob Storage si quieres que funcione siempre
-        # por ejemplo: "https://frontpeliculastuusername.zxx.web.core.windows.net",
+        # url peliculas,
     ]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
