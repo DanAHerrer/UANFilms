@@ -60,7 +60,7 @@ else:
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
-ROOT_URLCONF = 'uanfilms_backend.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'uanfilms_backend.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
