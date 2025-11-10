@@ -1,19 +1,19 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import FormCard from '../components/FormCard'; 
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ 
+  const handleLogin = async (formData) => {
     try {
-      await login(username, password);
-      navigate('/'); // Redirige al inicio después del login
+     
+      await login(formData.username, formData.password);
+      navigate('/'); 
     } catch (error) {
       console.error('Error en el inicio de sesión:', error);
       alert('Credenciales incorrectas.');
@@ -21,14 +21,16 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Usuario" required />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" required />
-        <button type="submit">Entrar</button>
-      </form>
-    </div>
+    
+    <FormCard
+      title="Iniciar Sesión"
+      fields={[
+        { name: 'username', type: 'text', label: 'Usuario', required: true },
+        { name: 'password', type: 'password', label: 'Contraseña', required: true }
+      ]}
+      buttonText="Entrar"
+      onSubmit={handleLogin} 
+    />
   );
 };
 

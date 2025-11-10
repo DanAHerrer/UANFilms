@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import apiClient from '../api/axios';
-import { useAuth } from '../context/AuthContext'; // Para saber si el usuario está logueado
-import ReviewForm from '../components/reviews/ReviewForm'; // <-- Importamos nuestro nuevo componente
+import { useAuth } from '../context/AuthContext'; 
+import ReviewForm from '../components/reviews/ReviewForm'; 
 
 const MovieDetailPage = () => {
-  const { id } = useParams(); // Obtiene el ID de la película de la URL
-  const { user } = useAuth(); // Obtenemos el estado del usuario
+  const { id } = useParams(); 
+  const { user } = useAuth(); 
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -27,13 +27,13 @@ const MovieDetailPage = () => {
     fetchMovie();
   }, [id]);
 
-  // FUNCIÓN PARA MANEJAR EL ENVÍO DE LA RESEÑA
+  
   const handleReviewSubmit = async (reviewData) => {
     try {
-      // Hacemos la petición POST al endpoint de reseñas de la película actual
+      
       const response = await apiClient.post(`/peliculas/${id}/resenas/`, reviewData);
       
-      // Actualizamos el estado para mostrar la nueva reseña instantáneamente
+      
       const newReview = response.data;
       setMovie(prevMovie => ({
         ...prevMovie,
@@ -78,7 +78,7 @@ const MovieDetailPage = () => {
 
       <hr />
 
-      {/* RENDERIZADO CONDICIONAL DEL FORMULARIO */}
+
       {user ? (
         <ReviewForm peliculaId={id} onReviewSubmitted={handleReviewSubmit} />
       ) : (

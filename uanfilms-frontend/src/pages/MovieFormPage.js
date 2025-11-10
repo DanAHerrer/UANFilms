@@ -1,29 +1,18 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../api/axios';
+import FormCard from '../components/FormCard'; 
 
 const MovieFormPage = () => {
-  const [formData, setFormData] = useState({
-    titulo: '',
-    sinopsis: '',
-    ano_lanzamiento: '',
-    director: '',
-    genero: '',
-    elenco: '',
-  });
+  
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleAddMovie = async (formData) => {
     try {
-      
+    
       const response = await apiClient.post('/peliculas/', formData);
       alert('¡Película agregada con éxito!');
-      // Redirigimos al usuario a la página de detalle de la nueva película
       navigate(`/pelicula/${response.data.id}`);
     } catch (error) {
       console.error('Error al agregar la película:', error);
@@ -32,19 +21,20 @@ const MovieFormPage = () => {
   };
 
   return (
-    <div>
-      <h1>Añadir Nueva Película</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Aquí irían los inputs para cada campo del formulario */}
-        <input name="titulo" value={formData.titulo} onChange={handleChange} placeholder="Título" required />
-        <textarea name="sinopsis" value={formData.sinopsis} onChange={handleChange} placeholder="Sinopsis" required />
-        <input type="number" name="ano_lanzamiento" value={formData.ano_lanzamiento} onChange={handleChange} placeholder="Año de Lanzamiento" required />
-        <input name="director" value={formData.director} onChange={handleChange} placeholder="Director" required />
-        <input name="genero" value={formData.genero} onChange={handleChange} placeholder="Género" required />
-        <textarea name="elenco" value={formData.elenco} onChange={handleChange} placeholder="Elenco" required />
-        <button type="submit">Guardar Película</button>
-      </form>
-    </div>
+   
+    <FormCard
+      title="Añadir Nueva Película"
+      fields={[
+        { name: 'titulo', type: 'text', label: 'Título', required: true },
+        { name: 'sinopsis', type: 'textarea', label: 'Sinopsis', required: true },
+        { name: 'ano_lanzamiento', type: 'number', label: 'Año de Lanzamiento', required: true },
+        { name: 'director', type: 'text', label: 'Director', required: true },
+        { name: 'genero', type: 'text', label: 'Género', required: true },
+        { name: 'elenco', type: 'textarea', label: 'Elenco (separado por comas)', required: true }
+      ]}
+      buttonText="Guardar Película"
+      onSubmit={handleAddMovie} 
+    />
   );
 };
 
