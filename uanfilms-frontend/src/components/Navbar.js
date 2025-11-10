@@ -13,7 +13,7 @@ const Navbar = () => {
         {user ? (
           <>
             <span className="navbar-user">Hola, {user.username}</span>
-            <Link to="/add-movie">Añadir Película</Link>
+            <Link to="/agregar-pelicula">Añadir Película</Link>
             <button onClick={logout} className="logout-button">Cerrar Sesión</button>
           </>
         ) : (
