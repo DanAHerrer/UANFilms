@@ -18,7 +18,7 @@ if allowed_hosts_str:
 else:
     
     if DEBUG:
-        ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'tu_ip_publica_de_la_vm_local_test'] 
+        ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] 
     else:
         ALLOWED_HOSTS = [] 
 
@@ -84,8 +84,8 @@ WSGI_APPLICATION = 'wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
+    'default': {    
+        'ENGINE': 'mysql.connector.django',
         'NAME': os.environ.get('DATABASE_NAME'),
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
@@ -120,9 +120,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 LANGUAGE_CODE = 'en-us'
 

@@ -10,14 +10,12 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (authToken) {
-      // Si hay un token, lo decodificamos y lo guardamos en el estado 'user'
+    if (authToken) {     
       setUser(jwtDecode(authToken));
-    } else {
-      // Si no hay token, nos aseguramos de que el usuario sea null
+    } else {      
       setUser(null);
     }
-    // Ya terminamos de verificar el token al cargar, quitamos el estado de carga
+   
     setLoading(false);
 
   }, [authToken]); 

@@ -1,0 +1,30 @@
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.add-movie-link {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.add-movie-link:hover {
+  background-color: #79c0ff;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}

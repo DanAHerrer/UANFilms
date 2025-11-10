@@ -1,4 +1,4 @@
-// src/App.js
+
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -15,24 +15,25 @@ function App() {
     <div className="App">
       <Navbar />
       <main>
-        <Routes>
-          {/* Rutas Públicas */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/pelicula/:id" element={<MovieDetailPage />} />
+       
+        <div className="app-container">
+          <Routes>
+            {/* Rutas Públicas */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/pelicula/:id" element={<MovieDetailPage />} />
 
-          {/* Rutas Privadas */}
-          <Route element={<PrivateRoute />}>
-            <Route path="/agregar-pelicula" element={<MovieFormPage />} />
-            {/* Aquí irían otras rutas privadas, */}
-          </Route>
-        </Routes>
+            {/* Rutas Privadas */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/agregar-pelicula" element={<MovieFormPage />} />
+            </Route>
+          </Routes>
+        </div>
       </main>
     </div>
   );
 }
 
 export default App;
-
 

@@ -10,7 +10,4 @@ router.register(r'peliculas', PeliculaViewSet, basename='pelicula')
 resenas_router = routers.NestedDefaultRouter(router, r'peliculas', lookup='pelicula')
 resenas_router.register(r'resenas', ResenaViewSet, basename='pelicula-resenas')
 
-urlpatterns = [
-    path('', include(router.urls)),
-    path('', include(resenas_router.urls)),
-]
+urlpatterns = router.urls + resenas_router.urls

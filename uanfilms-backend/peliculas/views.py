@@ -2,7 +2,7 @@
 from rest_framework import viewsets, permissions
 from .models import Pelicula, Resena
 from .serializers import PeliculaSerializer, ResenaSerializer
-from django.db.models import Q # Para búsquedas complejas
+from django.db.models import Q 
 from rest_framework.decorators import action
 from rest_framework.response import Response
 

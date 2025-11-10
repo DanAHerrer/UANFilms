@@ -1,6 +1,9 @@
+// src/pages/HomePage.js
 import React, { useState, useEffect } from 'react';
-import apiClient from '../api/axios';
 import { Link } from 'react-router-dom';
+import apiClient from '../api/axios'; 
+import MovieCard from '../components/MovieCard/MovieCard.js';
+import './HomePage.css'; 
 
 const HomePage = () => {
   const [peliculas, setPeliculas] = useState([]);
@@ -9,7 +12,8 @@ const HomePage = () => {
   useEffect(() => {
     const fetchPeliculas = async () => {
       try {
-        const response = await apiClient.get('/peliculas/');
+        
+        const response = await apiClient.get('/peliculas/'); 
         setPeliculas(response.data);
       } catch (error) {
         console.error('Error al cargar las películas', error);
@@ -24,15 +28,18 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>Catálogo de Películas</h1>
-      <Link to="/agregar-pelicula">Añadir Nueva Película</Link>
-      <div className="movie-list">
+      
+      <div className="page-header">
+        <h1>Catálogo de Películas</h1>
+      
+        <Link to="/agregar-pelicula" className="add-movie-link">Añadir Nueva Película</Link>
+      </div>
+      
+  
+      <div className="movie-grid">
         {peliculas.map(pelicula => (
-          <div key={pelicula.id} className="movie-card">
-            <h2>{pelicula.titulo} ({pelicula.ano_lanzamiento})</h2>
-            <p>Director: {pelicula.director}</p>
-            <Link to={`/pelicula/${pelicula.id}`}>Ver detalles</Link>
-          </div>
+          
+          <MovieCard key={pelicula.id} movie={pelicula} />
         ))}
       </div>
     </div>

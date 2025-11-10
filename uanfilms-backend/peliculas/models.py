@@ -1,6 +1,5 @@
 from django.db import models
-from usuarios.models import Usuario # Importamos el modelo de usuario
-
+from usuarios.models import Usuario 
 class Pelicula(models.Model):
     titulo = models.CharField(max_length=255)
     sinopsis = models.TextField()
@@ -21,7 +20,7 @@ class Resena(models.Model):
     creado_en = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        # Un usuario solo puede hacer una reseña por película
+        
         unique_together = ('pelicula', 'usuario')
 
     def __str__(self):

@@ -1,0 +1,33 @@
+
+.movie-card {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card-content {
+  padding: 1.5rem;
+}
+
+.movie-card-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.movie-card-director {
+  color: var(--text-secondary-color);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.movie-card-details {
+  font-weight: bold;
+}

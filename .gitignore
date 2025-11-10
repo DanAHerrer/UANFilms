@@ -8,9 +8,7 @@
   # Archivos de sistema operativo y editores
   .DS_Store
   Thumbs.db
-  .env
-  *.env.local
-  .env.production
+  
 # Backend - Django
 uanfilms-backend/venv/
 uanfilms-backend/pycache/
