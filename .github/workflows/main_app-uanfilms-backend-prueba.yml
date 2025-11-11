@@ -1,11 +1,9 @@
-# .github/workflows/main_app-uanfilms-backend-prueba.yml
-
 name: Build and deploy Python app to Azure Web App - app-uanfilms-backend-prueba
 
 on:
   push:
     branches:
-      - main # O la rama que estés usando
+      - main
   workflow_dispatch:
 
 jobs:
@@ -20,25 +18,22 @@ jobs:
         with:
           python-version: '3.11'
 
-      # --- ESTE ES EL CAMBIO CLAVE ---
-      # Le decimos a los siguientes pasos que trabajen dentro de la carpeta del backend
       - name: Create and start virtual environment and install dependencies
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-        working-directory: ./uanfilms-backend # <--- AÑADIDO
+        working-directory: ./uanfilms-backend
 
-      # El paso de "zip" también debe ejecutarse desde la carpeta correcta
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
-        working-directory: ./uanfilms-backend # <--- AÑADIDO
+        working-directory: ./uanfilms-backend
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: ./uanfilms-backend/release.zip # <--- RUTA CORREGIDA
+          path: ./uanfilms-backend/release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,5 +57,5 @@ jobs:
         with:
           app-name: 'app-uanfilms-backend-prueba'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_... }} # Este valor ya estará rellenado correctamente
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A1B2C3D4E5F6G7H8I9J0K1L2 }}
           package: .
