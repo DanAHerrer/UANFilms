@@ -1,5 +1,6 @@
 from django.db import models
 from usuarios.models import Usuario 
+
 class Pelicula(models.Model):
     titulo = models.CharField(max_length=255)
     sinopsis = models.TextField()
@@ -7,8 +8,8 @@ class Pelicula(models.Model):
     director = models.CharField(max_length=150)
     genero = models.CharField(max_length=100)
     elenco = models.TextField()
-    codigo_hash = models.CharField(max_length=64, unique=True, editable=False) # Usamos SHA256, no es editable por el usuario
-    
+    portada = models.ImageField(upload_to='portadas/', null=True, blank=True) 
+    codigo_hash = models.CharField(max_length=64, unique=True, editable=False)
     def __str__(self):
         return self.titulo
 

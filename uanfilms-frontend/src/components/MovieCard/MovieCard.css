@@ -31,3 +31,9 @@
 .movie-card-details {
   font-weight: bold;
 }
+.movie-card-img {
+  width: 100%; 
+  height: 380px; 
+  object-fit: cover; 
+  display: block;
+}

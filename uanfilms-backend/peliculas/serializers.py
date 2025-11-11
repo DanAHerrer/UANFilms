@@ -19,8 +19,8 @@ class PeliculaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pelicula
-        fields = ['id', 'titulo', 'sinopsis', 'ano_lanzamiento', 'director', 'genero', 'elenco', 'codigo_hash', 'resenas']
-        read_only_fields = ('codigo_hash',) # El hash se genera automáticamente
+        fields = ['id', 'titulo', 'sinopsis', 'ano_lanzamiento', 'director', 'genero', 'elenco', 'portada', 'codigo_hash', 'resenas']
+        read_only_fields = ('codigo_hash',) 
 
     def create(self, validated_data):
         

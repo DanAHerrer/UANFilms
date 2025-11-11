@@ -5,6 +5,9 @@ from django.shortcuts import redirect
 from usuarios.views import RegistroView
 from usuarios.views import RegistroView, MyTokenObtainPairView 
 from rest_framework_simplejwt.views import TokenRefreshView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 def api_root_redirect(request):
     
@@ -23,3 +26,5 @@ urlpatterns = [
 
     path('api/', include('peliculas.urls')),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

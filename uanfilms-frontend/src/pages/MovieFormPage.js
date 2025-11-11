@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../api/axios';
@@ -7,21 +6,21 @@ import FormCard from '../components/FormCard';
 const MovieFormPage = () => {
   
   const navigate = useNavigate();
-
-  const handleAddMovie = async (formData) => {
+ 
+const handleAddMovie = async (formData) => {
     try {
-    
-      const response = await apiClient.post('/peliculas/', formData);
+      
+      await apiClient.post('/peliculas/', formData);
+
       alert('¡Película agregada con éxito!');
-      navigate(`/pelicula/${response.data.id}`);
+      navigate('/'); 
     } catch (error) {
-      console.error('Error al agregar la película:', error);
+      console.error('Error al agregar la película:', error.response ? error.response.data : error.message);
       alert('Hubo un error al agregar la película.');
     }
   };
 
   return (
-   
     <FormCard
       title="Añadir Nueva Película"
       fields={[
@@ -30,7 +29,8 @@ const MovieFormPage = () => {
         { name: 'ano_lanzamiento', type: 'number', label: 'Año de Lanzamiento', required: true },
         { name: 'director', type: 'text', label: 'Director', required: true },
         { name: 'genero', type: 'text', label: 'Género', required: true },
-        { name: 'elenco', type: 'textarea', label: 'Elenco (separado por comas)', required: true }
+        { name: 'elenco', type: 'textarea', label: 'Elenco (separado por comas)', required: true },        
+        { name: 'portada', type: 'file', label: 'Portada de la Película', required: false, accept: 'image/*' }
       ]}
       buttonText="Guardar Película"
       onSubmit={handleAddMovie} 
