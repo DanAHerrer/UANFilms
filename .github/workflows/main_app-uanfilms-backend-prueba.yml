@@ -26,7 +26,7 @@ jobs:
       
       - name: Zip artifact for deployment
         run: |
-          # Nos movemos al directorio del proyecto para que la estructura del zip sea correcta
+          
           cd uanfilms_backend
           zip -r ../release.zip .
           cd ..
@@ -70,3 +70,4 @@ jobs:
           app-name: 'app-uanfilms-backend-prueba'
           slot-name: 'Production'
           package: python-app/release.zip # La ruta del paquete descargado
+
