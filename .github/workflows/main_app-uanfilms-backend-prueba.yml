@@ -23,12 +23,12 @@ jobs:
 
       - name: Build artifact with dependencies
         run: |
-          cd uanfilms_backend
           pip install --upgrade pip
-          pip install -r requirements.txt --target="./.python_packages/lib/site-packages"
+          pip install -r uanfilms_backend/requirements.txt --target="./packages"
+          cd uanfilms_backend
           zip -r ../release.zip . -x "*.pyc"
-          cd ../.python_packages/lib/site-packages
-          zip -r ../../../../release.zip .
+          cd ../packages
+          zip -ur ../release.zip .
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -48,5 +48,3 @@ jobs:
         with:
           app-name: 'app-uanfilms-backend-prueba'
           package: release.zip
-
-
