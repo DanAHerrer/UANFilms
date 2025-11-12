@@ -66,6 +66,7 @@ jobs:
         with:
           app-name: 'app-uanfilms-backend-prueba'
           slot-name: 'Production'
-          package: python-app/release.zip # La ruta del paquete descargado
+          package: release.zip
+
 
 
