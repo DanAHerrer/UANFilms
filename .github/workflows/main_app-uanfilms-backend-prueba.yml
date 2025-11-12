@@ -14,14 +14,27 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Zip artifact for deployment
+      - name: Set up Python version
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
+      - name: Build artifact with dependencies
         run: |
+          pip install --upgrade pip
+          pip install -r uanfilms_backend/requirements.txt --target="./packages"
           cd uanfilms_backend
-          zip -r ../release.zip .
+          zip -r ../release.zip . -x "*.pyc"
+          cd ../packages
+          zip -ur ../release.zip .
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-app
+          path: release.zip
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -30,7 +43,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_80B2770A95A946BAB2D4763CBF4B11D9 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9053BADAB27D4DEEB1335D8598B6E462 }}
 
-      - name: Deploy to Azure Web App
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'app-uanfilms-backend-prueba'
