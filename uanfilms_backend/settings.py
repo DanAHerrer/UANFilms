@@ -63,7 +63,7 @@ else:
     CORS_ALLOWED_ORIGINS = [origin.strip() for origin in cors_origins_str.split(',') if origin.strip()]
 
 
-ROOT_URLCONF = 'uanfilms_backend.urls'
+ROOT_URLCONF = 'urls'
 WSGI_APPLICATION = 'uanfilms_backend.wsgi.application'
 AUTH_USER_MODEL = 'usuarios.Usuario'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
