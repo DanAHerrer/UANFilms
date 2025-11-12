@@ -96,6 +96,7 @@ DATABASES = {
         'HOST': os.environ.get('DATABASE_HOST'),
         'PORT': os.environ.get('DATABASE_PORT', '3306'),
         'OPTIONS': {
+            
             'sql_mode': 'STRICT_TRANS_TABLES',
         }
     }
