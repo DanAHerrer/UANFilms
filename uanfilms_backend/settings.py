@@ -96,8 +96,9 @@ DATABASES = {
         'HOST': os.environ.get('DATABASE_HOST'),
         'PORT': os.environ.get('DATABASE_PORT', '3306'),
         'OPTIONS': {
-            
             'sql_mode': 'STRICT_TRANS_TABLES',
+            
+            'ssl_ca': os.path.join(BASE_DIR, 'DigiCertGlobalRootG2.crt.pem')
         }
     }
 }
