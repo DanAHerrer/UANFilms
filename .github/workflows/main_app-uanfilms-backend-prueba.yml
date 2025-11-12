@@ -9,7 +9,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+    permissions:
+      id-token: write # Permite al flujo de trabajo solicitar un token OIDC
+      contents: read  # Permite al flujo de trabajo leer el contenido del repositorio
+
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +37,8 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'app-uanfilms-backend-prueba'
-          package: ./uanfilms_backend # Desplegamos la subcarpeta que contiene el código
+          package: ./uanfilms_backend
+
 
 
 
