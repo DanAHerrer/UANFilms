@@ -26,17 +26,9 @@ jobs:
 
       # 🛠️ Local Build Section (Optional)
       # The following section in your workflow is designed to catch build issues early on the client side, before deployment. This can be helpful for debugging and validation. However, if this step significantly increases deployment time and early detection is not critical for your workflow, you may remove this section to streamline the deployment process.
-      # ... (después del paso de 'Set up Python version') ...
-
-      - name: Create and start virtual environment
-        run: |
-          python -m venv antenv
-          source antenv/bin/activate
-        
       
       - name: Install dependencies
         run: |
-          source antenv/bin/activate
           pip install -r requirements.txt
         working-directory: ./uanfilms_backend 
 
@@ -85,6 +77,7 @@ jobs:
           slot-name: 'Production'
 
           
+
 
 
 
