@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v4
 
@@ -18,41 +18,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Create and install dependencies
-        run: |
-          # Creamos un directorio de paquetes que SÍ incluiremos en el zip
-          mkdir -p ./.python_packages/lib/site-packages
-          pip install --target=./.python_packages/lib/site-packages -r ./uanfilms_backend/requirements.txt
       
-      - name: Zip artifact for deployment
+      - name: Install dependencies locally for validation
         run: |
-          
-          cd uanfilms_backend
-          zip -r ../release.zip .
-          cd ..
-          # Añadimos los paquetes instalados al mismo zip
-          cd .python_packages/lib/site-packages
-          zip -r ../../../../release.zip .
-          
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: python-app
-          path: release.zip
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      id-token: write # Required for requesting the JWT
-      contents: read # Required for actions/checkout
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: python-app
-      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -62,11 +33,10 @@ jobs:
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
         with:
           app-name: 'app-uanfilms-backend-prueba'
-          slot-name: 'Production'
-          package: release.zip
+          package: . # ¡IMPORTANTE! Desplegamos el directorio completo, no un zip.
+
 
 
 
